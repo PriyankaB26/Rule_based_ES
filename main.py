@@ -34,14 +34,40 @@ def pretty_print_results(user_facts: list, fact_base, inference_log: list):
             facts_now = entry.get("fact_snapshot", sorted(fact_base.facts))
             print(f"   Facts now: {', '.join(facts_now)}\n")
 
-    # Final facts with origin labels (user vs inferred)
-    print("Final facts:")
+        # === Final facts (grouped by source) ===
+    user_final = []
+    inferred_final = []
+    unknown_final = []
+
     for f in sorted(fact_base.facts):
         src = None
         if hasattr(fact_base, "sources") and fact_base.sources is not None:
             src = fact_base.sources.get(f, None)
-        label = "user" if src == "user" else ("inferred" if src else "unknown")
-        print(f"- {f} ({label})")
+
+        if src == "user":
+            user_final.append(f)
+        elif src and src.startswith("inferred_by"):
+            inferred_final.append(f)
+        else:
+            unknown_final.append(f)
+
+    print("Final Facts (Grouped):")
+
+    if user_final:
+        print("\nUser-entered facts:")
+        for f in user_final:
+            print(f"- {f}")
+
+    if inferred_final:
+        print("\nInferred facts:")
+        for f in inferred_final:
+            print(f"- {f}")
+
+    if unknown_final:
+        print("\nUnknown-source facts:")
+        for f in unknown_final:
+            print(f"- {f}")
+
 
 # ---------- Canonical vocabulary + synonyms ----------
 CANONICAL = {
