@@ -1,4 +1,3 @@
-# main.py (merged: normalization, synonyms, fuzzy matching, pretty output, debug)
 from factbase import FactBase
 from rules import rules
 from engine import forward_chain
@@ -45,7 +44,6 @@ def pretty_print_results(user_facts: list, fact_base, inference_log: list):
         print(f"- {f} ({label})")
 
 # ---------- Canonical vocabulary + synonyms ----------
-# (you can auto-build CANONICAL from your rules, but this is explicit and small)
 CANONICAL = {
     "fever", "cough", "sore throat", "runny nose", "sneezing",
     "body ache", "fatigue", "dry cough", "loss of taste", "loss of smell",

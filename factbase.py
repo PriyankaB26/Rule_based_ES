@@ -1,5 +1,3 @@
-# factbase.py
-
 from typing import Iterable, Dict, Set
 
 class FactBase:
@@ -24,7 +22,6 @@ class FactBase:
             if self.sources is not None:
                 self.sources[f] = source
             return True
-        # If already present, optionally update source priority (skip for simplicity)
         return False
 
     def extend(self, facts: Iterable[str], source: str = "user") -> int:
